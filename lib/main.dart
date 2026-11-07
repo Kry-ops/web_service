@@ -1015,7 +1015,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Center(
             child: TweenAnimationBuilder<double>(
               tween: Tween(begin: .82, end: 1),
-              duration: const Duration(milliseconds: 900),
+              duration: const Duration(milliseconds: 900), //ubah di sini
               curve: Curves.easeOutBack,
               builder: (context, nilai, child) => Transform.scale(
                 scale: nilai,
@@ -1028,8 +1028,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     width: 92,
                     height: 92,
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(28),
+                      color: Warna.tinta,
+                      borderRadius: BorderRadius.circular(30),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(.13),
@@ -1124,7 +1124,7 @@ class _LoginScreenState extends State<LoginScreen> {
     await Future.delayed(const Duration(milliseconds: 550));
     if (!mounted) return;
 
-    if (_username.text.trim() == 'admin' && _password.text == 'admin123') {
+    if (_username.text.trim() == 'staff' && _password.text == 'staff999') {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
@@ -1204,7 +1204,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 22),
                         const Text(
-                          'Selamat datang!',
+                          'Selamat datang',
                           textAlign: TextAlign.center,
                           style: Gaya.judulHalaman,
                         ),
@@ -1233,12 +1233,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               const Text('Login', style: Gaya.judulBagian),
-                              const SizedBox(height: 5),
-                              const Text(
-                                'Gunakan akun demo untuk melanjutkan.',
-                                style: Gaya.redup,
-                              ),
-                              const SizedBox(height: 22),
+                              const SizedBox(height: 15),
                               TextFormField(
                                 controller: _username,
                                 textInputAction: TextInputAction.next,
@@ -1249,7 +1244,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 validator: (v) =>
                                     (v == null || v.trim().isEmpty)
-                                        ? 'Username wajib diisi'
+                                        ? 'staff'
                                         : null,
                               ),
                               const SizedBox(height: 14),
@@ -1277,7 +1272,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 validator: (v) => (v == null || v.isEmpty)
-                                    ? 'Password wajib diisi'
+                                    ? 'staff999'
                                     : null,
                               ),
                               const SizedBox(height: 22),
@@ -1318,23 +1313,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           decoration: BoxDecoration(
                             color: Warna.labelMuda,
                             borderRadius: BorderRadius.circular(14),
-                          ),
-                          child: const Row(
-                            children: [
-                              Icon(Icons.info_outline,
-                                  color: Warna.tinta, size: 19),
-                              SizedBox(width: 10),
-                              Expanded(
-                                child: Text(
-                                  'Akun demo: admin  •  Password: admin123',
-                                  style: TextStyle(
-                                    color: Warna.teks,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                            ],
                           ),
                         ),
                       ],
@@ -2218,15 +2196,15 @@ class AkunPage extends StatelessWidget {
               child: Row(
                 children: [
                   Container(
-                    width: 62,
-                    height: 62,
+                    width: 49,
+                    height: 49,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(19),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                     alignment: Alignment.center,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(30),
                       child: Image.asset(
                         logoIkoAsset,
                         width: 46,
@@ -2301,25 +2279,25 @@ class AkunPage extends StatelessWidget {
                   _barisInfo(
                     Icons.dashboard_customize_outlined,
                     'Dashboard penjualan',
-                    'Pantau pendapatan, jumlah pesanan, barang terjual, dan kondisi stok dari satu halaman.',
+                    'Pantau pendapatan, jumlah pesanan, barang terjual, dan kondisi stok',
                   ),
                   const Divider(height: 1, color: Warna.garis),
                   _barisInfo(
                     Icons.add_box_outlined,
                     'Manajemen barang',
-                    'Tambah, ubah, cari, dan hapus produk. Foto barang dapat diambil melalui kamera atau galeri.',
+                    'Tambah, ubah, cari, dan hapus produk',
                   ),
                   const Divider(height: 1, color: Warna.garis),
                   _barisInfo(
                     Icons.point_of_sale_outlined,
                     'Pencatatan penjualan',
-                    'Pilih produk, tentukan jumlah, hitung total otomatis, dan kurangi stok secara langsung.',
+                    'Pilih produk, tentukan jumlah, hitung total otomatis, dan kurangi stok',
                   ),
                   const Divider(height: 1, color: Warna.garis),
                   _barisInfo(
                     Icons.receipt_long_outlined,
                     'Riwayat dan nota',
-                    'Lihat transaksi yang pernah dicatat dan buka kembali detail nota penjualan.',
+                    'Lihat transaksi yang pernah dicatat',
                   ),
                 ],
               ),
@@ -2343,7 +2321,7 @@ class AkunPage extends StatelessWidget {
             child: Column(
               children: [
                 const Text(
-                  'iKo • Aplikasi Manajemen Toko',
+                  'iKo • Aplikasi Manajeman Toko',
                   style: TextStyle(
                     color: Warna.redup,
                     fontSize: 12,
