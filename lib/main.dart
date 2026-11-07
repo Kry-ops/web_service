@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
-const String namaToko = 'i Ko';
+const String namaToko = 'iKo';
 const int batasStokTipis = 5;
 
 void main() => runApp(const TokoApp());
@@ -19,7 +19,7 @@ class Warna {
   static const kertas = Color(0xFFF2F4F3);
   static const garis = Color(0xFFDCE1DF);
   static const garisTegas = Color(0xFFC3CBC8);
-  static const label = Color.fromARGB(255, 156, 154, 162);
+  static const label = Color.fromARGB(66, 255, 0, 0);
   static const labelMuda = Color.fromARGB(255, 255, 242, 240);
   static const stempel = Color.fromARGB(255, 131, 16, 1);
   static const teks = Color.fromARGB(255, 131, 16, 1);
@@ -111,10 +111,10 @@ class Order {
 
 class TokoStore extends ChangeNotifier {
   final List<Product> products = [
-    Product(name: 'Mouse Wireless', price: 75000, stock: 20),
-    Product(name: 'Keyboard', price: 150000, stock: 15),
-    Product(name: 'Headset', price: 120000, stock: 10),
-    Product(name: 'Flashdisk 32GB', price: 55000, stock: 25),
+    Product(name: 'Sofa', price: 750000, stock: 20),
+    Product(name: 'Kursi', price: 150000, stock: 15),
+    Product(name: 'Meja', price: 2200000, stock: 10),
+    Product(name: 'Lampu', price: 350000, stock: 25),
   ];
   final List<Order> orders = [];
 
@@ -1009,7 +1009,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               const SizedBox(height: 16),
               const Text(
-                'Dummy erererere',
+                'Toko Furnitur',
                 style: TextStyle(color: Colors.white70, fontSize: 14),
               ),
             ],
@@ -1082,16 +1082,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Text(
                       namaToko,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 48,
                         fontWeight: FontWeight.w800,
                         color: Warna.tinta,
                       ),
                     ),
-                    const SizedBox(height: 44),
-                    const Text('Masuk', style: Gaya.judulHalaman),
+                    const SizedBox(height: 14),
+                    const Text('Login', style: Gaya.judulHalaman),
                     const SizedBox(height: 8),
                     const Text(
-                      'Gunakan akun admin untuk mengelola barang dan pesanan.',
+                      'Selamat datang di toko furnitur iKo',
                       style: Gaya.redup,
                     ),
                     const SizedBox(height: 28),
@@ -1144,11 +1144,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               )
                             : const Text('Masuk'),
                       ),
-                    ),
-                    const SizedBox(height: 18),
-                    const Text(
-                      'Akun demo: admin / admin123',
-                      style: Gaya.redup,
                     ),
                   ],
                 ),
