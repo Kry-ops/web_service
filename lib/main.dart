@@ -104,14 +104,11 @@ class Order {
   final int price;
   final int quantity;
   final DateTime date;
-  final Uint8List? gambar; // salinan cover saat pesanan dibuat
+  final Uint8List? gambar;
 
   int get total => price * quantity;
 }
 
-/// Satu sumber data untuk semua halaman. Semua tab otomatis ikut
-/// diperbarui lewat ListenableBuilder, jadi tidak perlu setState manual
-/// setiap kali kembali dari halaman lain.
 class TokoStore extends ChangeNotifier {
   final List<Product> products = [
     Product(name: 'Mouse Wireless', price: 75000, stock: 20),
@@ -179,8 +176,6 @@ class TokoStore extends ChangeNotifier {
 }
 
 final TokoStore store = TokoStore();
-
-
 const _namaHari = [
   'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu', //
 ];
@@ -190,7 +185,6 @@ const _namaBulan = [
 ];
 
 String _dua(int n) => n.toString().padLeft(2, '0');
-
 
 String rupiah(int value) {
   final s = value.abs().toString();
@@ -204,11 +198,9 @@ String rupiah(int value) {
 
 String formatJam(DateTime d) => '${_dua(d.hour)}:${_dua(d.minute)}';
 
-/// "07/11/2026 14:30"
 String formatTanggal(DateTime d) =>
-    '${_dua(d.day)}/${_dua(d.month)}/${d.year} ${formatJam(d)}';
 
-/// "Sabtu, 7 November 2026"
+    '${_dua(d.day)}/${_dua(d.month)}/${d.year} ${formatJam(d)}';
 String tanggalPanjang(DateTime d) =>
     '${_namaHari[d.weekday - 1]}, ${d.day} ${_namaBulan[d.month - 1]} ${d.year}';
 
@@ -285,8 +277,6 @@ void bukaFormPesanan(BuildContext context) {
 
 final ImagePicker _picker = ImagePicker();
 
-/// Ambil foto dari kamera atau galeri. Hasilnya dikecilkan (maks 1080 px)
-/// agar ringan, lalu disimpan sebagai bytes di memori.
 Future<Uint8List?> ambilGambar(BuildContext context, ImageSource sumber) async {
   try {
     final file = await _picker.pickImage(
@@ -310,7 +300,6 @@ Future<Uint8List?> ambilGambar(BuildContext context, ImageSource sumber) async {
     return null;
   }
 }
-
 
 Future<bool> tampilkanNota(
   BuildContext context,
@@ -374,7 +363,7 @@ List<Widget> denganGaris(List<Widget> items) => [
       ],
     ];
 
-// ================= WIDGET BANTUAN =================
+// WIDGET BANTUAN
 class Panel extends StatelessWidget {
   const Panel({
     super.key,
@@ -529,7 +518,6 @@ class GarisPutus extends StatelessWidget {
   }
 }
 
-
 class _TepiGerigi extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -551,7 +539,6 @@ class _TepiGerigi extends CustomClipper<Path> {
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }
-
 
 class Nota extends StatelessWidget {
   const Nota({super.key, required this.order});
@@ -632,8 +619,6 @@ Widget teksStok(Product p) {
   return Text('Stok ${p.stock}', style: Gaya.redup);
 }
 
-/// Foto cover barang. Mengisi ruang yang diberikan induknya (SizedBox /
-/// AspectRatio). Kalau belum ada foto, tampil inisial nama barang.
 class GambarBarang extends StatelessWidget {
   const GambarBarang({
     super.key,
@@ -686,7 +671,6 @@ class GambarBarang extends StatelessWidget {
   }
 }
 
-/// Kartu barang bergaya toko online: foto di atas, nama, harga, stok.
 class KartuBarang extends StatelessWidget {
   const KartuBarang({super.key, required this.product, required this.onTap});
 
@@ -843,8 +827,7 @@ class BarisPesanan extends StatelessWidget {
   }
 }
 
-// ================= APP =================
-
+// APP
 class TokoApp extends StatelessWidget {
   const TokoApp({super.key});
 
@@ -966,7 +949,8 @@ ThemeData _tema() {
   );
 }
 
-// ================= 1. SPLASH =================
+// SPLASH
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -1025,7 +1009,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               const SizedBox(height: 16),
               const Text(
-                'Stok dan penjualan toko, dalam satu tempat.',
+                'Dummy erererere',
                 style: TextStyle(color: Colors.white70, fontSize: 14),
               ),
             ],
@@ -1036,8 +1020,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-// ================= 2. LOGIN =================
-
+// LOGIN
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -1178,7 +1161,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-// ================= 3. KERANGKA UTAMA (TAB) =================
+// KERANGKA UTAMA
 
 class HomeShell extends StatefulWidget {
   const HomeShell({super.key});
@@ -1247,7 +1230,7 @@ class _HomeShellState extends State<HomeShell> {
   }
 }
 
-// ================= 4. BERANDA =================
+// BERANDA
 
 class BerandaPage extends StatelessWidget {
   const BerandaPage({super.key, required this.pindahTab});
@@ -1378,7 +1361,7 @@ class BerandaPage extends StatelessWidget {
   }
 }
 
-// ================= 5. BARANG =================
+// BARANG
 
 class BarangPage extends StatefulWidget {
   const BarangPage({super.key});
@@ -1562,7 +1545,7 @@ class RiwayatPage extends StatelessWidget {
           );
         }
 
-        // Kelompokkan per hari; urutan sudah terbaru di atas.
+
         final grup = <String, List<Order>>{};
         for (final o in urut) {
           final kunci = '${o.date.year}-${o.date.month}-${o.date.day}';
@@ -1604,7 +1587,7 @@ class RiwayatPage extends StatelessWidget {
   }
 }
 
-// ================= 7. AKUN =================
+// AKUN
 
 class AkunPage extends StatelessWidget {
   const AkunPage({super.key});
@@ -1685,7 +1668,7 @@ class AkunPage extends StatelessWidget {
   }
 }
 
-// ================= 8. FORM TAMBAH / UBAH BARANG =================
+// FORM TAMBAH / UBAH BARANG
 
 class ProductFormScreen extends StatefulWidget {
   const ProductFormScreen({super.key, this.product});
@@ -1967,7 +1950,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   }
 }
 
-// ================= 9. FORM CATAT PENJUALAN =================
+// FORM CATAT PENJUALAN 
 
 class OrderFormScreen extends StatefulWidget {
   const OrderFormScreen({super.key});
