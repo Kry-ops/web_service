@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
-const String namaToko = 'Dummy';
+const String namaToko = 'i Ko';
 const int batasStokTipis = 5;
 
 void main() => runApp(const TokoApp());
@@ -15,14 +15,14 @@ void main() => runApp(const TokoApp());
 // Kuning HANYA untuk aksi "buat baru". Merah HANYA untuk stok menipis/bahaya.
 
 class Warna {
-  static const tinta = Color(0xFF1B3A57);
+  static const tinta = Color.fromARGB(255, 131, 16, 1);
   static const kertas = Color(0xFFF2F4F3);
   static const garis = Color(0xFFDCE1DF);
   static const garisTegas = Color(0xFFC3CBC8);
-  static const label = Color(0xFFF5C242);
-  static const labelMuda = Color(0xFFFBE9B5);
-  static const stempel = Color(0xFFC23B2B);
-  static const teks = Color(0xFF16202A);
+  static const label = Color.fromARGB(255, 156, 154, 162);
+  static const labelMuda = Color.fromARGB(255, 255, 242, 240);
+  static const stempel = Color.fromARGB(255, 131, 16, 1);
+  static const teks = Color.fromARGB(255, 131, 16, 1);
   static const redup = Color(0xFF5F6B73);
 }
 
