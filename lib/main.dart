@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 const String namaToko = 'iKo';
+// Ganti file ini dengan logo milikmu. Pastikan sudah didaftarkan di pubspec.yaml.
+const String logoIkoAsset = 'assets/logo_iko_fix.png';
 const int batasStokTipis = 5;
 
 void main() => runApp(const TokoApp());
@@ -15,22 +17,23 @@ void main() => runApp(const TokoApp());
 // Kuning HANYA untuk aksi "buat baru". Merah HANYA untuk stok menipis/bahaya.
 
 class Warna {
-  static const tinta = Color.fromARGB(255, 131, 16, 1);
-  static const kertas = Color(0xFFF2F4F3);
-  static const garis = Color(0xFFDCE1DF);
-  static const garisTegas = Color(0xFFC3CBC8);
-  static const label = Color.fromARGB(66, 255, 0, 0);
-  static const labelMuda = Color.fromARGB(255, 255, 242, 240);
-  static const stempel = Color.fromARGB(255, 131, 16, 1);
-  static const teks = Color.fromARGB(255, 131, 16, 1);
-  static const redup = Color(0xFF5F6B73);
+  // Identitas visual iKo: merah bata sebagai warna utama.
+  static const tinta = Color(0xFFB5121B);
+  static const kertas = Color(0xFFFFF8F6);
+  static const garis = Color(0xFFF0DEDA);
+  static const garisTegas = Color(0xFFD9BDB8);
+  static const label = Color(0xFFFFE7E3);
+  static const labelMuda = Color(0xFFFFF0ED);
+  static const stempel = Color(0xFF9E1018);
+  static const teks = Color(0xFF421C1D);
+  static const redup = Color(0xFF806D6B);
 }
 
 class Gaya {
   static const _tabular = [FontFeature.tabularFigures()];
 
   static const judulHalaman = TextStyle(
-    fontSize: 28,
+    fontSize: 29,
     fontWeight: FontWeight.w800,
     letterSpacing: -0.6,
     height: 1.1,
@@ -843,25 +846,28 @@ class TokoApp extends StatelessWidget {
 }
 
 ThemeData _tema() {
-  final skema = ColorScheme.fromSeed(seedColor: Warna.tinta).copyWith(
+  final skema = ColorScheme.fromSeed(
+    seedColor: Warna.tinta,
+    brightness: Brightness.light,
+  ).copyWith(
     primary: Warna.tinta,
     onPrimary: Colors.white,
-    secondary: Warna.label,
-    onSecondary: Warna.teks,
-    secondaryContainer: Warna.labelMuda,
+    secondary: const Color(0xFFE16A62),
+    onSecondary: Colors.white,
+    secondaryContainer: Warna.label,
     onSecondaryContainer: Warna.teks,
     error: Warna.stempel,
     surface: Colors.white,
     onSurface: Warna.teks,
-    outline: Warna.garis,
+    outline: Warna.garisTegas,
   );
 
   final bentukInput = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(10),
+    borderRadius: BorderRadius.circular(14),
     borderSide: const BorderSide(color: Warna.garisTegas),
   );
   final bentukTombol = RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(10),
+    borderRadius: BorderRadius.circular(14),
   );
 
   return ThemeData(
@@ -876,19 +882,19 @@ ThemeData _tema() {
       surfaceTintColor: Colors.transparent,
       centerTitle: false,
       titleTextStyle: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w700,
+        fontSize: 19,
+        fontWeight: FontWeight.w800,
         color: Warna.teks,
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.white,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 15),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 17),
       border: bentukInput,
       enabledBorder: bentukInput,
       focusedBorder: bentukInput.copyWith(
-        borderSide: const BorderSide(color: Warna.tinta, width: 1.6),
+        borderSide: const BorderSide(color: Warna.tinta, width: 1.8),
       ),
       errorBorder: bentukInput.copyWith(
         borderSide: const BorderSide(color: Warna.stempel),
@@ -896,11 +902,15 @@ ThemeData _tema() {
       focusedErrorBorder: bentukInput.copyWith(
         borderSide: const BorderSide(color: Warna.stempel, width: 1.6),
       ),
+      labelStyle: const TextStyle(color: Warna.redup),
+      prefixIconColor: Warna.redup,
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         backgroundColor: Warna.tinta,
         foregroundColor: Colors.white,
+        disabledBackgroundColor: const Color(0xFFE8D4D1),
+        disabledForegroundColor: Colors.white,
         minimumSize: const Size(88, 52),
         shape: bentukTombol,
         textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
@@ -916,27 +926,36 @@ ThemeData _tema() {
       ),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: Warna.label,
-      foregroundColor: Warna.teks,
+      backgroundColor: Warna.tinta,
+      foregroundColor: Colors.white,
       extendedTextStyle: const TextStyle(
-        fontSize: 15,
+        fontSize: 14,
         fontWeight: FontWeight.w700,
       ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     ),
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: Colors.white,
+      indicatorColor: Warna.label,
       surfaceTintColor: Colors.transparent,
       elevation: 0,
-      height: 66,
+      height: 72,
+      labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       labelTextStyle: WidgetStateProperty.resolveWith(
         (states) => TextStyle(
-          fontSize: 12,
+          fontSize: 11,
           fontWeight: states.contains(WidgetState.selected)
-              ? FontWeight.w700
+              ? FontWeight.w800
               : FontWeight.w500,
           color: states.contains(WidgetState.selected)
-              ? Warna.teks
+              ? Warna.tinta
+              : Warna.redup,
+        ),
+      ),
+      iconTheme: WidgetStateProperty.resolveWith(
+        (states) => IconThemeData(
+          color: states.contains(WidgetState.selected)
+              ? Warna.tinta
               : Warna.redup,
         ),
       ),
@@ -944,7 +963,8 @@ ThemeData _tema() {
     snackBarTheme: SnackBarThemeData(
       behavior: SnackBarBehavior.floating,
       contentTextStyle: const TextStyle(color: Colors.white, fontSize: 14),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      backgroundColor: Warna.teks,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
     ),
   );
 }
@@ -962,12 +982,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 1600), () {
+    Future.delayed(const Duration(milliseconds: 1700), () {
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          transitionDuration: const Duration(milliseconds: 350),
+          transitionDuration: const Duration(milliseconds: 420),
           pageBuilder: (context, animasi, sekunder) => const LoginScreen(),
           transitionsBuilder: (context, animasi, sekunder, child) =>
               FadeTransition(opacity: animasi, child: child),
@@ -980,44 +1000,105 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Warna.tinta,
-      body: Center(
-        child: TweenAnimationBuilder<double>(
-          tween: Tween(begin: 0, end: 1),
-          duration: const Duration(milliseconds: 800),
-          builder: (context, nilai, child) =>
-              Opacity(opacity: nilai, child: child),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                namaToko,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 38,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: -1,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Warna.label,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Toko Furnitur',
-                style: TextStyle(color: Colors.white70, fontSize: 14),
-              ),
-            ],
+      body: Stack(
+        children: [
+          Positioned(
+            top: -90,
+            right: -70,
+            child: _LingkaranDekorasi(diameter: 260, warna: Colors.white.withOpacity(.08)),
           ),
-        ),
+          Positioned(
+            bottom: -115,
+            left: -65,
+            child: _LingkaranDekorasi(diameter: 290, warna: Colors.white.withOpacity(.07)),
+          ),
+          Center(
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: .82, end: 1),
+              duration: const Duration(milliseconds: 900),
+              curve: Curves.easeOutBack,
+              builder: (context, nilai, child) => Transform.scale(
+                scale: nilai,
+                child: Opacity(opacity: nilai.clamp(0, 1).toDouble(), child: child),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 92,
+                    height: 92,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(28),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(.13),
+                          blurRadius: 28,
+                          offset: const Offset(0, 12),
+                        ),
+                      ],
+                    ),
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      logoIkoAsset,
+                      width: 68,
+                      height: 68,
+                      fit: BoxFit.contain,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.storefront_rounded,
+                              color: Warna.tinta, size: 42),
+                    ),
+                  ),
+                  const SizedBox(height: 22),
+                  const Text(
+                    namaToko,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 42,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: -1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'KELOLA TOKO JADI LEBIH MUDAH',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 10,
+                      letterSpacing: 2.1,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 34),
+                  const SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2.4,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
+}
+
+class _LingkaranDekorasi extends StatelessWidget {
+  const _LingkaranDekorasi({required this.diameter, required this.warna});
+  final double diameter;
+  final Color warna;
+
+  @override
+  Widget build(BuildContext context) => Container(
+        width: diameter,
+        height: diameter,
+        decoration: BoxDecoration(shape: BoxShape.circle, color: warna),
+      );
 }
 
 // LOGIN
@@ -1037,21 +1118,27 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _login() async {
     if (_loading || !_formKey.currentState!.validate()) return;
+    FocusScope.of(context).unfocus();
 
     setState(() => _loading = true);
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 550));
     if (!mounted) return;
 
     if (_username.text.trim() == 'admin' && _password.text == 'admin123') {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const HomeShell()),
+        PageRouteBuilder(
+          transitionDuration: const Duration(milliseconds: 350),
+          pageBuilder: (_, animation, __) => const HomeShell(),
+          transitionsBuilder: (_, animation, __, child) =>
+              FadeTransition(opacity: animation, child: child),
+        ),
       );
     } else {
       setState(() => _loading = false);
       tampilkanPesan(
         context,
-        'Username atau password salah. Periksa lagi lalu coba masuk.',
+        'Username atau password tidak sesuai.',
         error: true,
       );
     }
@@ -1068,88 +1155,195 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 400),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      namaToko,
-                      style: TextStyle(
-                        fontSize: 48,
-                        fontWeight: FontWeight.w800,
-                        color: Warna.tinta,
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-                    const Text('Login', style: Gaya.judulHalaman),
-                    const SizedBox(height: 8),
-                    const Text(
-                      'Selamat datang di toko furnitur iKo',
-                      style: Gaya.redup,
-                    ),
-                    const SizedBox(height: 28),
-                    TextFormField(
-                      controller: _username,
-                      textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(labelText: 'Username'),
-                      validator: (v) => (v == null || v.trim().isEmpty)
-                          ? 'Username wajib diisi'
-                          : null,
-                    ),
-                    const SizedBox(height: 14),
-                    TextFormField(
-                      controller: _password,
-                      obscureText: _sembunyikan,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) => _login(),
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        suffixIcon: IconButton(
-                          tooltip: _sembunyikan
-                              ? 'Tampilkan password'
-                              : 'Sembunyikan password',
-                          icon: Icon(
-                            _sembunyikan
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                          ),
-                          onPressed: () =>
-                              setState(() => _sembunyikan = !_sembunyikan),
-                        ),
-                      ),
-                      validator: (v) => (v == null || v.isEmpty)
-                          ? 'Password wajib diisi'
-                          : null,
-                    ),
-                    const SizedBox(height: 22),
-                    SizedBox(
-                      width: double.infinity,
-                      child: FilledButton(
-                        onPressed: _loading ? null : _login,
-                        child: _loading
-                            ? const SizedBox(
-                                height: 22,
-                                width: 22,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2.5,
-                                  color: Colors.white,
+        child: Stack(
+          children: [
+            Positioned(
+              top: -105,
+              right: -90,
+              child: _LingkaranDekorasi(
+                diameter: 250,
+                warna: Warna.label.withOpacity(.8),
+              ),
+            ),
+            Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(24, 28, 24, 28),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 420),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Center(
+                          child: Container(
+                            width: 76,
+                            height: 76,
+                            decoration: BoxDecoration(
+                              color: Warna.tinta,
+                              borderRadius: BorderRadius.circular(24),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Warna.tinta.withOpacity(.2),
+                                  blurRadius: 22,
+                                  offset: const Offset(0, 10),
                                 ),
-                              )
-                            : const Text('Masuk'),
-                      ),
+                              ],
+                            ),
+                            alignment: Alignment.center,
+                            child: Image.asset(
+                              logoIkoAsset,
+                              width: 54,
+                              height: 54,
+                              fit: BoxFit.contain,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.storefront_rounded,
+                                      color: Colors.white, size: 36),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 22),
+                        const Text(
+                          'Selamat datang!',
+                          textAlign: TextAlign.center,
+                          style: Gaya.judulHalaman,
+                        ),
+                        const SizedBox(height: 7),
+                        const Text(
+                          'Masuk untuk mulai mengelola toko iKo.',
+                          textAlign: TextAlign.center,
+                          style: Gaya.redup,
+                        ),
+                        const SizedBox(height: 28),
+                        Container(
+                          padding: const EdgeInsets.all(22),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(color: Warna.garis),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Warna.teks.withOpacity(.045),
+                                blurRadius: 24,
+                                offset: const Offset(0, 10),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const Text('Login', style: Gaya.judulBagian),
+                              const SizedBox(height: 5),
+                              const Text(
+                                'Gunakan akun demo untuk melanjutkan.',
+                                style: Gaya.redup,
+                              ),
+                              const SizedBox(height: 22),
+                              TextFormField(
+                                controller: _username,
+                                textInputAction: TextInputAction.next,
+                                autofillHints: const [AutofillHints.username],
+                                decoration: const InputDecoration(
+                                  labelText: 'Username',
+                                  prefixIcon: Icon(Icons.person_outline),
+                                ),
+                                validator: (v) =>
+                                    (v == null || v.trim().isEmpty)
+                                        ? 'Username wajib diisi'
+                                        : null,
+                              ),
+                              const SizedBox(height: 14),
+                              TextFormField(
+                                controller: _password,
+                                obscureText: _sembunyikan,
+                                textInputAction: TextInputAction.done,
+                                autofillHints: const [AutofillHints.password],
+                                onFieldSubmitted: (_) => _login(),
+                                decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  prefixIcon: const Icon(Icons.lock_outline),
+                                  suffixIcon: IconButton(
+                                    tooltip: _sembunyikan
+                                        ? 'Tampilkan password'
+                                        : 'Sembunyikan password',
+                                    icon: Icon(
+                                      _sembunyikan
+                                          ? Icons.visibility_outlined
+                                          : Icons.visibility_off_outlined,
+                                    ),
+                                    onPressed: () => setState(
+                                      () => _sembunyikan = !_sembunyikan,
+                                    ),
+                                  ),
+                                ),
+                                validator: (v) => (v == null || v.isEmpty)
+                                    ? 'Password wajib diisi'
+                                    : null,
+                              ),
+                              const SizedBox(height: 22),
+                              SizedBox(
+                                width: double.infinity,
+                                child: FilledButton(
+                                  onPressed: _loading ? null : _login,
+                                  child: _loading
+                                      ? const SizedBox(
+                                          height: 21,
+                                          width: 21,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2.4,
+                                            color: Colors.white,
+                                          ),
+                                        )
+                                      : const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text('Masuk ke iKo'),
+                                            SizedBox(width: 8),
+                                            Icon(Icons.arrow_forward_rounded,
+                                                size: 18),
+                                          ],
+                                        ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 13,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Warna.labelMuda,
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: const Row(
+                            children: [
+                              Icon(Icons.info_outline,
+                                  color: Warna.tinta, size: 19),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  'Akun demo: admin  •  Password: admin123',
+                                  style: TextStyle(
+                                    color: Warna.teks,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -1214,9 +1408,9 @@ class _HomeShellState extends State<HomeShell> {
               label: 'Riwayat',
             ),
             NavigationDestination(
-              icon: Icon(Icons.person_outline),
-              selectedIcon: Icon(Icons.person),
-              label: 'Akun',
+              icon: Icon(Icons.info_outline),
+              selectedIcon: Icon(Icons.info),
+              label: 'Tentang',
             ),
           ],
         ),
@@ -1240,79 +1434,291 @@ class BerandaPage extends StatelessWidget {
         final hariIni = store.pesananHariIni;
         final restok = store.perluRestok;
         final terakhir = store.orders.reversed.take(3).toList();
+        final jumlahBarang = store.products.length;
+        final stokTotal = store.products.fold<int>(0, (sum, p) => sum + p.stock);
 
         return ListView(
-          padding: const EdgeInsets.only(bottom: 28),
+          padding: const EdgeInsets.only(bottom: 32),
           children: [
-            HeaderHalaman(
-              judul: namaToko,
-              keterangan: tanggalPanjang(DateTime.now()),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 24, 20, 18),
+              child: Row(
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: Warna.tinta,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    alignment: Alignment.center,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        logoIkoAsset,
+                        width: 36,
+                        height: 36,
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.storefront_rounded,
+                                color: Colors.white, size: 27),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Selamat datang di',
+                          style: TextStyle(
+                            color: Warna.redup,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Text(
+                          namaToko,
+                          style: TextStyle(
+                            color: Warna.teks,
+                            fontSize: 23,
+                            height: 1.15,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: -.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 9,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Warna.garis),
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.calendar_today_outlined,
+                            size: 14, color: Warna.tinta),
+                        const SizedBox(width: 7),
+                        Text(
+                          '${_dua(DateTime.now().day)} ${_namaBulan[DateTime.now().month - 1].substring(0, 3)}',
+                          style: const TextStyle(
+                            color: Warna.teks,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: sisi,
-              child: Panel(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Pendapatan hari ini', style: Gaya.redup),
-                    const SizedBox(height: 6),
-                    Text(
-                      rupiah(store.pendapatanHariIni),
-                      style: Gaya.angkaBesar,
+              child: Container(
+                padding: const EdgeInsets.all(21),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFFC91D28), Color(0xFF941019)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Warna.tinta.withOpacity(.19),
+                      blurRadius: 22,
+                      offset: const Offset(0, 11),
                     ),
-                    const SizedBox(height: 16),
-                    const GarisPutus(),
-                    const SizedBox(height: 12),
-                    BarisAngka('Pesanan hari ini', '${hariIni.length}'),
-                    BarisAngka('Barang terjual', '${store.terjualHariIni}'),
-                    BarisAngka(
-                      'Total semua pesanan',
-                      rupiah(store.pendapatan),
+                  ],
+                ),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      right: -28,
+                      top: -34,
+                      child: _LingkaranDekorasi(
+                        diameter: 150,
+                        warna: Colors.white.withOpacity(.08),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Expanded(
+                              child: Text(
+                                'PENDAPATAN HARI INI',
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 11,
+                                  letterSpacing: 1.2,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(.15),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Icon(
+                                Icons.trending_up_rounded,
+                                color: Colors.white,
+                                size: 19,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            rupiah(store.pendapatanHariIni),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 31,
+                              height: 1.1,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: -.8,
+                              fontFeatures: [FontFeature.tabularFigures()],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 18),
+                        Container(height: 1, color: Colors.white24),
+                        const SizedBox(height: 14),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _InfoPendapatan(
+                                icon: Icons.receipt_long_outlined,
+                                label: 'Pesanan',
+                                value: '${hariIni.length}',
+                              ),
+                            ),
+                            Container(
+                              width: 1,
+                              height: 34,
+                              color: Colors.white24,
+                            ),
+                            Expanded(
+                              child: _InfoPendapatan(
+                                icon: Icons.inventory_2_outlined,
+                                label: 'Item terjual',
+                                value: '${store.terjualHariIni}',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 18, 20, 0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: _KartuRingkas(
+                      icon: Icons.widgets_outlined,
+                      label: 'Jenis barang',
+                      value: '$jumlahBarang',
+                      caption: 'Dalam katalog',
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _KartuRingkas(
+                      icon: Icons.inventory_outlined,
+                      label: 'Total stok',
+                      value: '$stokTotal',
+                      caption: 'Unit tersedia',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const JudulBagian('Aksi cepat'),
             Padding(
               padding: sisi,
-              child: SizedBox(
-                width: double.infinity,
-                child: FilledButton.icon(
-                  onPressed: () => bukaFormPesanan(context),
-                  icon: const Icon(Icons.add),
-                  label: const Text('Catat penjualan'),
-                  style: FilledButton.styleFrom(
-                    backgroundColor: Warna.label,
-                    foregroundColor: Warna.teks,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: _AksiCepat(
+                      icon: Icons.add_shopping_cart_rounded,
+                      label: 'Catat penjualan',
+                      primary: true,
+                      onTap: () => bukaFormPesanan(context),
+                    ),
                   ),
-                ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: _AksiCepat(
+                      icon: Icons.add_box_outlined,
+                      label: 'Tambah barang',
+                      onTap: () => bukaFormBarang(context),
+                    ),
+                  ),
+                ],
               ),
             ),
             JudulBagian(
-              'Perlu restok',
-              aksi: restok.length > 5
-                  ? TextButton(
-                      onPressed: () => pindahTab(1),
-                      child: const Text('Lihat semua'),
-                    )
-                  : null,
+              'Perlu perhatian',
+              aksi: TextButton(
+                onPressed: () => pindahTab(1),
+                child: const Text('Buka katalog'),
+              ),
             ),
             Padding(
               padding: sisi,
               child: restok.isEmpty
-                  ? const Panel(
-                      child: Text(
-                        'Semua barang masih aman.',
-                        style: Gaya.redup,
+                  ? Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFEAF2EC),
+                        borderRadius: BorderRadius.circular(17),
+                        border: Border.all(color: const Color(0xFFD8E7DB)),
+                      ),
+                      child: const Row(
+                        children: [
+                          Icon(Icons.check_circle_outline,
+                              color: Color(0xFF4D8060)),
+                          SizedBox(width: 11),
+                          Expanded(
+                            child: Text(
+                              'Stok aman. Belum ada barang yang perlu direstok.',
+                              style: TextStyle(
+                                color: Color(0xFF42634D),
+                                fontSize: 13,
+                                height: 1.35,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     )
-                  : Panel(
-                      padding: EdgeInsets.zero,
+                  : Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(color: Warna.garis),
+                      ),
                       child: Column(
                         children: denganGaris([
-                          for (final p in restok.take(5))
+                          for (final p in restok.take(4))
                             BarisBarang(
                               product: p,
                               onTap: () => bukaFormBarang(context, p),
@@ -1322,25 +1728,45 @@ class BerandaPage extends StatelessWidget {
                     ),
             ),
             JudulBagian(
-              'Pesanan terakhir',
-              aksi: terakhir.isNotEmpty
-                  ? TextButton(
-                      onPressed: () => pindahTab(2),
-                      child: const Text('Lihat riwayat'),
-                    )
-                  : null,
+              'Pesanan terbaru',
+              aksi: TextButton(
+                onPressed: () => pindahTab(2),
+                child: const Text('Lihat semua'),
+              ),
             ),
             Padding(
               padding: sisi,
               child: terakhir.isEmpty
-                  ? const Panel(
-                      child: Text(
-                        'Belum ada pesanan. Pesanan yang Anda catat muncul di sini.',
-                        style: Gaya.redup,
+                  ? Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(color: Warna.garis),
+                      ),
+                      child: const Column(
+                        children: [
+                          Icon(Icons.receipt_long_outlined,
+                              size: 30, color: Warna.garisTegas),
+                          SizedBox(height: 9),
+                          Text('Belum ada penjualan',
+                              style: Gaya.judulBaris),
+                          SizedBox(height: 4),
+                          Text(
+                            'Pesanan yang sudah dicatat akan tampil di sini.',
+                            textAlign: TextAlign.center,
+                            style: Gaya.redup,
+                          ),
+                        ],
                       ),
                     )
-                  : Panel(
-                      padding: EdgeInsets.zero,
+                  : Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(color: Warna.garis),
+                      ),
                       child: Column(
                         children: denganGaris([
                           for (final o in terakhir)
@@ -1354,6 +1780,137 @@ class BerandaPage extends StatelessWidget {
       },
     );
   }
+}
+
+class _InfoPendapatan extends StatelessWidget {
+  const _InfoPendapatan({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
+  final IconData icon;
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(right: 8),
+        child: Row(
+          children: [
+            Icon(icon, color: Colors.white70, size: 18),
+            const SizedBox(width: 8),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(label,
+                    style: const TextStyle(color: Colors.white70, fontSize: 11)),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+}
+
+class _KartuRingkas extends StatelessWidget {
+  const _KartuRingkas({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.caption,
+  });
+  final IconData icon;
+  final String label;
+  final String value;
+  final String caption;
+
+  @override
+  Widget build(BuildContext context) => Container(
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: Warna.garis),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(icon, color: Warna.tinta, size: 20),
+            const SizedBox(height: 12),
+            Text(value,
+                style: const TextStyle(
+                  color: Warna.teks,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                )),
+            const SizedBox(height: 2),
+            Text(label,
+                style: const TextStyle(
+                  color: Warna.teks,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                )),
+            Text(caption, style: Gaya.redup.copyWith(fontSize: 11)),
+          ],
+        ),
+      );
+}
+
+class _AksiCepat extends StatelessWidget {
+  const _AksiCepat({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+    this.primary = false,
+  });
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+  final bool primary;
+
+  @override
+  Widget build(BuildContext context) => Material(
+        color: primary ? Warna.tinta : Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 92),
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: primary ? Warna.tinta : Warna.garis,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon,
+                    color: primary ? Colors.white : Warna.tinta, size: 22),
+                const SizedBox(height: 10),
+                Text(
+                  label,
+                  style: TextStyle(
+                    color: primary ? Colors.white : Warna.teks,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
 }
 
 // BARANG
@@ -1590,8 +2147,8 @@ class AkunPage extends StatelessWidget {
   Future<void> _keluar(BuildContext context) async {
     final ok = await konfirmasi(
       context,
-      'Keluar dari akun?',
-      'Anda perlu masuk lagi untuk mengelola toko.',
+      'Keluar dari iKo?',
+      'Kamu akan kembali ke halaman login. Data demo akan tetap tersedia selama aplikasi berjalan.',
       yes: 'Keluar',
       bahaya: true,
     );
@@ -1604,61 +2161,215 @@ class AkunPage extends StatelessWidget {
     );
   }
 
+  Widget _barisInfo(IconData icon, String judul, String isi) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 11),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 38,
+            height: 38,
+            decoration: BoxDecoration(
+              color: Warna.labelMuda,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: Warna.tinta, size: 19),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(judul, style: Gaya.judulBaris),
+                const SizedBox(height: 3),
+                Text(isi, style: Gaya.redup),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const HeaderHalaman(judul: 'Akun'),
-        Padding(
-          padding: sisi,
-          child: Panel(
-            padding: const EdgeInsets.all(18),
-            child: Row(
-              children: [
-                const CircleAvatar(
-                  radius: 26,
-                  backgroundColor: Warna.tinta,
-                  child: Text(
-                    'A',
-                    style: TextStyle(
+    return ListenableBuilder(
+      listenable: store,
+      builder: (context, _) => ListView(
+        padding: const EdgeInsets.only(bottom: 30),
+        children: [
+          const HeaderHalaman(
+            judul: 'Tentang iKo',
+            keterangan: 'Kenali toko dan fitur yang tersedia di aplikasi.',
+          ),
+          Padding(
+            padding: sisi,
+            child: Container(
+              padding: const EdgeInsets.all(22),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFFC91D28), Color(0xFF941019)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(23),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 62,
+                    height: 62,
+                    decoration: BoxDecoration(
                       color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
+                      borderRadius: BorderRadius.circular(19),
+                    ),
+                    alignment: Alignment.center,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.asset(
+                        logoIkoAsset,
+                        width: 46,
+                        height: 46,
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.storefront_rounded,
+                                color: Warna.tinta, size: 34),
+                      ),
                     ),
                   ),
+                  const SizedBox(width: 15),
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'iKo',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 27,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: -.7,
+                          ),
+                        ),
+                        SizedBox(height: 3),
+                        Text(
+                          'Manajemen Toko Furnitur',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Icon(Icons.storefront_rounded,
+                      color: Colors.white70, size: 28),
+                ],
+              ),
+            ),
+          ),
+          const JudulBagian('Informasi toko'),
+          Padding(
+            padding: sisi,
+            child: Panel(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+              child: Column(
+                children: [
+                  _barisInfo(
+                    Icons.storefront_outlined,
+                    'Nama toko',
+                    'iKo Furniture',
+                  ),
+                  const Divider(height: 1, color: Warna.garis),
+                  _barisInfo(
+                    Icons.inventory_2_outlined,
+                    'Katalog saat ini',
+                    '${store.products.length} jenis barang tersedia dengan total ${store.products.fold<int>(0, (sum, p) => sum + p.stock)} unit stok.',
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const JudulBagian('Tentang aplikasi'),
+          Padding(
+            padding: sisi,
+            child: Panel(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+              child: Column(
+                children: [
+                  _barisInfo(
+                    Icons.dashboard_customize_outlined,
+                    'Dashboard penjualan',
+                    'Pantau pendapatan, jumlah pesanan, barang terjual, dan kondisi stok dari satu halaman.',
+                  ),
+                  const Divider(height: 1, color: Warna.garis),
+                  _barisInfo(
+                    Icons.add_box_outlined,
+                    'Manajemen barang',
+                    'Tambah, ubah, cari, dan hapus produk. Foto barang dapat diambil melalui kamera atau galeri.',
+                  ),
+                  const Divider(height: 1, color: Warna.garis),
+                  _barisInfo(
+                    Icons.point_of_sale_outlined,
+                    'Pencatatan penjualan',
+                    'Pilih produk, tentukan jumlah, hitung total otomatis, dan kurangi stok secara langsung.',
+                  ),
+                  const Divider(height: 1, color: Warna.garis),
+                  _barisInfo(
+                    Icons.receipt_long_outlined,
+                    'Riwayat dan nota',
+                    'Lihat transaksi yang pernah dicatat dan buka kembali detail nota penjualan.',
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 18),
+          Padding(
+            padding: sisi,
+            child: Container(
+              padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Warna.labelMuda,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Warna.label),
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: sisi,
+            child: Column(
+              children: [
+                const Text(
+                  'iKo • Aplikasi Manajemen Toko',
+                  style: TextStyle(
+                    color: Warna.redup,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-                const SizedBox(width: 16),
-                const Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Administrator', style: Gaya.judulBagian),
-                      SizedBox(height: 2),
-                      Text('admin@tokokita.com', style: Gaya.redup),
-                    ],
+                const SizedBox(height: 4),
+                const Text('Versi 0.0.1', style: Gaya.redup),
+                const SizedBox(height: 14),
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    onPressed: () => _keluar(context),
+                    icon: const Icon(Icons.logout_rounded, size: 18),
+                    label: const Text('Keluar dari aplikasi'),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Warna.stempel,
+                      side: const BorderSide(color: Warna.garisTegas),
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-        ),
-        const SizedBox(height: 16),
-        Padding(
-          padding: sisi,
-          child: SizedBox(
-            width: double.infinity,
-            child: OutlinedButton.icon(
-              onPressed: () => _keluar(context),
-              icon: const Icon(Icons.logout),
-              label: const Text('Keluar'),
-              style: OutlinedButton.styleFrom(
-                foregroundColor: Warna.stempel,
-                side: const BorderSide(color: Warna.stempel),
-              ),
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
