@@ -6,18 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 const String namaToko = 'iKo';
-// Ganti file ini dengan logo milikmu. Pastikan sudah didaftarkan di pubspec.yaml.
 const String logoIkoAsset = 'assets/logo_iko_fix.png';
 const int batasStokTipis = 5;
 
 void main() => runApp(const TokoApp());
 
-// ================= PALET & GAYA =================
-// Konsep visual: tinta biru pulpen, kertas nota, dan label harga kuning.
-// Kuning HANYA untuk aksi "buat baru". Merah HANYA untuk stok menipis/bahaya.
-
 class Warna {
-  // Identitas visual iKo: merah bata sebagai warna utama.
   static const tinta = Color(0xFFB5121B);
   static const kertas = Color(0xFFFFF8F6);
   static const garis = Color(0xFFF0DEDA);
@@ -72,8 +66,7 @@ class Gaya {
 
 const EdgeInsets sisi = EdgeInsets.symmetric(horizontal: 20);
 
-// ================= DATA =================
-
+// DATA
 class Product {
   Product({
     required this.name,
@@ -85,7 +78,7 @@ class Product {
   String name;
   int price;
   int stock;
-  Uint8List? gambar; // foto cover (null = belum ada foto)
+  Uint8List? gambar;
 
   bool get habis => stock <= 0;
   bool get stokTipis => stock > 0 && stock <= batasStokTipis;
@@ -288,7 +281,7 @@ Future<Uint8List?> ambilGambar(BuildContext context, ImageSource sumber) async {
       maxHeight: 1080,
       imageQuality: 80,
     );
-    if (file == null) return null; // user membatalkan
+    if (file == null) return null;
     return await file.readAsBytes();
   } catch (_) {
     if (context.mounted) {
@@ -969,7 +962,7 @@ ThemeData _tema() {
   );
 }
 
-// SPLASH
+// SPLASH SCREEN
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -1892,7 +1885,6 @@ class _AksiCepat extends StatelessWidget {
 }
 
 // BARANG
-
 class BarangPage extends StatefulWidget {
   const BarangPage({super.key});
 
@@ -2048,7 +2040,7 @@ class _BarangPageState extends State<BarangPage> {
   }
 }
 
-// ================= 6. RIWAYAT =================
+// 6. RIWAYAT
 
 class RiwayatPage extends StatelessWidget {
   const RiwayatPage({super.key});
@@ -2118,7 +2110,6 @@ class RiwayatPage extends StatelessWidget {
 }
 
 // AKUN
-
 class AkunPage extends StatelessWidget {
   const AkunPage({super.key});
 
@@ -2353,7 +2344,6 @@ class AkunPage extends StatelessWidget {
 }
 
 // FORM TAMBAH / UBAH BARANG
-
 class ProductFormScreen extends StatefulWidget {
   const ProductFormScreen({super.key, this.product});
 
@@ -2635,7 +2625,6 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
 }
 
 // FORM CATAT PENJUALAN 
-
 class OrderFormScreen extends StatefulWidget {
   const OrderFormScreen({super.key});
 
